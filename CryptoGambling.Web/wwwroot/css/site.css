@@ -1,0 +1,195 @@
+
+body {
+    background-color: #1A2C38;
+    min-height: 100%;
+}
+
+.dbodycolor {
+    background-color: #0F212E;
+}
+
+.cfooter {
+    margin-top: 30px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.footerhr {
+    width: 95%;
+    background-color: ghostwhite
+}
+
+.supportedcurr {
+    fill: #557086;
+}
+
+.initialheight {
+    height: 400px;
+}
+
+.max {
+    height: 250px;
+    width: 100%;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    color: ghostwhite;
+    max-height: 40px;
+}
+
+    a:hover {
+        color: ghostwhite;
+    }
+
+.ghwt {
+    color: ghostwhite;
+}
+
+.gray {
+    color: gray;
+}
+
+.maxheight {
+    height: 100%;
+    width: 100%;
+}
+
+.halfheight {
+    height: 50%;
+    width: 100%;
+}
+
+.startwinning {
+    background-color: royalblue;
+    height: 50px;
+    width: 200px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+    .startwinning:hover {
+        background-color: #2d499d;
+    }
+
+.img {
+    height: 90%;
+    width: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.astro {
+    background-image: url("../img/astro.png");
+}
+
+.planet {
+    background-image: url("../img/planet.png");
+    max-height: 80%;
+    max-width: 80%;
+}
+
+.blackhole {
+    background-image: url("../img/blackhole.png");
+    max-height: 75%;
+    max-width: 75%;
+}
+
+.affiliate {
+    background-image: url("../img/affiliate.png")
+}
+
+
+
+
+
+
+
+
+
+
+
+.leftrightanimation {
+    -webkit-animation: linear infinite;
+    -webkit-animation-name: run;
+    -webkit-animation-duration: 7s;
+}
+
+.spinning {
+    -webkit-animation: linear infinite;
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 20s;
+}
+
+@-webkit-keyframes run {
+    0% {
+        left: 0;
+        transform: translateX(0);
+    }
+
+    25% {
+        left: 7%;
+        transform: translateX(7%);
+    }
+
+    50% {
+        left: 7%;
+        transform: translateY(7%);
+    }
+
+    75% {
+        left: -7%;
+        transform: translateX(-7%);
+    }
+
+    100% {
+        left: 0%;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+
+.q {
+    background-color: red;
+    height: 10px;
+    width: 10px;
+}
+
+.logreginp {
+    margin-top: 7px;
+    background-color: transparent;
+    border: 0.1px solid ghostwhite;
+    color: ghostwhite;
+    height: 30px;
+    width: 250px;
+    border-radius: 10px;
+}
+
+.logregbutton {
+    background-color: royalblue;
+    height: 50px;
+    width: 250px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.ghwtspn {
+    color: red;
+}
+
+    .ghwtspn:hover {
+        color: red;
+    }
