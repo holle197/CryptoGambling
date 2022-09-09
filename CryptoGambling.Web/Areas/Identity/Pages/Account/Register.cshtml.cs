@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using CryptoGambling.Data.DataManaging;
 
 namespace CryptoGambling.Web.Areas.Identity.Pages.Account
 {
@@ -30,13 +31,15 @@ namespace CryptoGambling.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<UserIdentity> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IDataManager _dataManager;
 
         public RegisterModel(
             UserManager<UserIdentity> userManager,
             IUserStore<UserIdentity> userStore,
             SignInManager<UserIdentity> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IDataManager dataManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +47,7 @@ namespace CryptoGambling.Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _dataManager = dataManager;
         }
 
         /// <summary>
@@ -122,6 +126,8 @@ namespace CryptoGambling.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+                    await _dataManager.CreateNewUser(Input.Email);
+
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

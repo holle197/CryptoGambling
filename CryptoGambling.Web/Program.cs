@@ -1,11 +1,12 @@
-using CryptoGambling.Data.UserData;
 using CryptoGambling.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CryptoGambling.Web.Areas.Identity.Data;
+using CryptoGambling.Data.DataContext;
+using CryptoGambling.Data.DataManaging;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("UserIdentityDbContextConnection") ?? throw new InvalidOperationException("Connection string 'UserIdentityDbContextConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("Connection") ?? throw new InvalidOperationException("Connection string 'Connection' not found.");
 
 builder.Services.AddDbContext<UserIdentityDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -13,12 +14,14 @@ builder.Services.AddDbContext<UserIdentityDbContext>(options =>
 builder.Services.AddDefaultIdentity<UserIdentity>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<UserIdentityDbContext>();
 
-
+builder.Services.AddDbContext<DataUserContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+});
 
 // Add services to the container.
-builder.Services.AddSingleton<IUserData, MockUserData>();
 builder.Services.AddOptions();
-
+builder.Services.AddScoped<IDataManager, DataManager>();
 
 builder.Services.AddControllersWithViews();
 var app = builder.Build();

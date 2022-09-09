@@ -1,5 +1,8 @@
-﻿using System;
+﻿using CryptoGambling.Data.Users;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +11,8 @@ namespace CryptoGambling.Data.WalletsData
 {
     public class Wallets
     {
-        public string? WalletEmail { get; set; }
+        [Key, ForeignKey("User")]
+        public int Id { get; set; }
         public string? BtcAddress { get; set; }
         public string? LtcAddress { get; set; }
         public string? DogeAddress { get; set; }
@@ -20,7 +24,7 @@ namespace CryptoGambling.Data.WalletsData
         public decimal BtcReferredBalance { get; set; }
         public decimal LtcReferredBalance { get; set; }
         public decimal DogeReferredBalance { get; set; }
-
+        public virtual User? User { get; set; }
 
     }
 }
