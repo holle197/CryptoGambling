@@ -105,10 +105,20 @@ namespace CryptoGambling.Web.Areas.Identity.Pages.Account
         }
 
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string? referral)
         {
-            ReturnUrl = returnUrl;
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            if (referral is not null)
+            {
+                var refExist = await _dataManager.GetUserByReferralLink(referral);
+                if (refExist is not null)
+                {
+                    HttpContext.Session.SetString("referral", referral);
+                }
+            }
+
+            /*ReturnUrl = returnUrl;
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();*/
+
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -126,7 +136,10 @@ namespace CryptoGambling.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    await _dataManager.CreateNewUser(Input.Email);
+                    var referral = HttpContext.Session.GetString("referral");
+                    //referral can be null
+                    await _dataManager.CreateNewUser(Input.Email, referral);
+
 
 
                     var userId = await _userManager.GetUserIdAsync(user);

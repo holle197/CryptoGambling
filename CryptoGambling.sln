@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoGambling.Web", "CryptoGambling.Web\CryptoGambling.Web.csproj", "{B95760F8-7CAB-4939-9C6E-37DE8A85F720}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoGambling.Web", "CryptoGambling.Web\CryptoGambling.Web.csproj", "{B95760F8-7CAB-4939-9C6E-37DE8A85F720}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoGambling.Core", "CryptoGambling.Core\CryptoGambling.Core.csproj", "{1A01B385-AC40-4F7E-B35C-0EA43928D524}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoGambling.Core", "CryptoGambling.Core\CryptoGambling.Core.csproj", "{1A01B385-AC40-4F7E-B35C-0EA43928D524}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{08E46956-525B-4E33-B3CF-DF91FB6DF73F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{08E46956-525B-4E33-B3CF-DF91FB6DF73F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManualTesting", "ManualTesting\ManualTesting.csproj", "{69D07732-F740-439B-AF55-B3B33DD47485}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManualTesting", "ManualTesting\ManualTesting.csproj", "{69D07732-F740-439B-AF55-B3B33DD47485}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoGambling.Crypto.ExtApi", "CryptoGambling.Crypto.ExtApi\CryptoGambling.Crypto.ExtApi.csproj", "{8E9F9C31-B9DC-4030-B4FC-E889A38ACA95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoGambling.Crypto.ExtApi", "CryptoGambling.Crypto.ExtApi\CryptoGambling.Crypto.ExtApi.csproj", "{8E9F9C31-B9DC-4030-B4FC-E889A38ACA95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoGambling.Crypto.Wallet", "CryptoGambling.Crypto.Wallet\CryptoGambling.Crypto.Wallet.csproj", "{EF160470-D40E-4747-888E-48D13D0CCF78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoGambling.Crypto.Wallet", "CryptoGambling.Crypto.Wallet\CryptoGambling.Crypto.Wallet.csproj", "{EF160470-D40E-4747-888E-48D13D0CCF78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoGambling.Data", "CryptoGambling.Data\CryptoGambling.Data.csproj", "{8553D8FC-36B6-4C47-8BF9-57F1C1B90750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoGambling.Data", "CryptoGambling.Data\CryptoGambling.Data.csproj", "{8553D8FC-36B6-4C47-8BF9-57F1C1B90750}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

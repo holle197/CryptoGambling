@@ -20,7 +20,7 @@ namespace CryptoGambling.Data.DataManaging
         {
             this._data = _data;
         }
-        public async Task CreateNewUser(string email)
+        public async Task CreateNewUser(string email, string? referral)
         {
             User user = new User();
             user.Email = email;
@@ -35,7 +35,18 @@ namespace CryptoGambling.Data.DataManaging
             user.Deposites = new();
             user.Withdrawals = new();
 
-            await _data.Users.AddAsync(user);
+            if (referral is not null)
+            {
+                var refExist = GetUserByReferralLink(referral);
+                if (refExist is not null)
+                {
+                    user.ReferredBy = referral;
+                    _data.Users.Add(user);
+                    await _data.SaveChangesAsync();
+                    return;
+                }
+            }
+            _data.Users.Add(user);
             await _data.SaveChangesAsync();
 
         }

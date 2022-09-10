@@ -23,11 +23,8 @@ namespace CryptoGambling.Web.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            var res = await _dataManager.GetUserByEmail(user.Email.ToString());
-            await _dataManager.AddDeposite(res.Email, "", 0m);
-            return View(res);
+            return View();
         }
     }
 }

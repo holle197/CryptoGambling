@@ -11,7 +11,7 @@ namespace CryptoGambling.Data.DataManaging
 {
     public interface IDataManager
     {
-        Task CreateNewUser(string email);
+        Task CreateNewUser(string email, string? referral);
         Task<User?> GetUserByEmail(string email);
         Task<User?> GetUserByReferralLink(string referralLnki);
         Task<List<User>?> GetReferredUsers(string referralLink);
