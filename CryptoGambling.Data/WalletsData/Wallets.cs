@@ -11,7 +11,6 @@ namespace CryptoGambling.Data.WalletsData
 {
     public class Wallets
     {
-        [Key, ForeignKey("User")]
         public int Id { get; set; }
         public string? BtcAddress { get; set; }
         public string? LtcAddress { get; set; }
@@ -25,6 +24,8 @@ namespace CryptoGambling.Data.WalletsData
         public decimal LtcReferredBalance { get; set; }
         public decimal DogeReferredBalance { get; set; }
         public virtual User? User { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
 
     }
 }

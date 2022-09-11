@@ -13,8 +13,7 @@ namespace CryptoGambling.Data.Funds
         public int Id { get; set; }
         public string? DepositeHash { get; set; }
         public decimal Amount { get; set; }
-        public int UserId { get; set; }
-        public User? User { get; set; }
+        public virtual User? User { get; set; }
 
     }
 }

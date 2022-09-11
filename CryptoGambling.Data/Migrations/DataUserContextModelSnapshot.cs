@@ -55,7 +55,7 @@ namespace CryptoGambling.Data.Migrations
                     b.Property<string>("DepositeHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -114,7 +114,10 @@ namespace CryptoGambling.Data.Migrations
             modelBuilder.Entity("CryptoGambling.Data.WalletsData.Wallets", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("BtcAddress")
                         .HasColumnType("nvarchar(max)");
@@ -143,7 +146,13 @@ namespace CryptoGambling.Data.Migrations
                     b.Property<decimal>("LtcReferredBalance")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Wallets");
                 });
@@ -152,9 +161,7 @@ namespace CryptoGambling.Data.Migrations
                 {
                     b.HasOne("CryptoGambling.Data.Users.User", "User")
                         .WithMany("Deposites")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -172,7 +179,7 @@ namespace CryptoGambling.Data.Migrations
                 {
                     b.HasOne("CryptoGambling.Data.Users.User", "User")
                         .WithOne("Wallet")
-                        .HasForeignKey("CryptoGambling.Data.WalletsData.Wallets", "Id")
+                        .HasForeignKey("CryptoGambling.Data.WalletsData.Wallets", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

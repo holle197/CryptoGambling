@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using CryptoGambling.Web.Areas.Identity.Data;
+using CryptoGambling.Web.Models;
+using CryptoGambling.Web.DTO;
 
 namespace CryptoGambling.Web.Controllers
 {
@@ -22,9 +24,19 @@ namespace CryptoGambling.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
+            PlayerModel playerModel = new();
+            var identityUser = await _userManager.GetUserAsync(User);
+            var email = identityUser.Email.ToString();
 
+            var user = await _dataManager.GetUserByEmail(email);
 
-            return View();
+            if (user is not null)
+            {
+
+                FillPlayerModel.Fill(playerModel, user);
+            }
+
+            return View(playerModel);
         }
     }
 }

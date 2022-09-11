@@ -1,0 +1,29 @@
+﻿using CryptoGambling.Data.Users;
+using CryptoGambling.Web.Models;
+
+namespace CryptoGambling.Web.DTO
+{
+    public static class FillPlayerModel
+    {
+        public static void Fill(PlayerModel pm, User user)
+        {
+            pm.BtcBalance = FormatDeciml(user?.Wallet?.BtcBalance);
+            pm.LtcBalance = FormatDeciml(user?.Wallet?.LtcBalance);
+            pm.DogeBalance = FormatDeciml(user?.Wallet?.DogeBalance);
+
+            pm.BtcDepositeAddress = user?.Wallet?.BtcAddress ?? "OMG";
+            pm.LtcDepositeAddress = user?.Wallet?.LtcAddress ?? "";
+            pm.DogeDepositeAddress = user?.Wallet?.DogeAddress ?? "";
+
+            pm.Deposites = user?.Deposites ?? null;
+            pm.Withdrawals = user?.Withdrawals ?? null;
+
+        }
+
+        private static decimal FormatDeciml(decimal? balance)
+        {
+            decimal bal = balance ?? 0m;
+            return Math.Round(bal, 8);
+        }
+    }
+}

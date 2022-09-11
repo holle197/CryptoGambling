@@ -193,3 +193,32 @@ a {
     .ghwtspn:hover {
         color: red;
     }
+
+.walletShortName {
+    background-color: #323830;
+    border-radius: 10px;
+}
+
+#walletDiv {
+    background-color: #717f6d;
+    border-radius: 10px;
+    user-select: none;
+    cursor: pointer;
+    font-family: 'Segoe UI Symbol';
+}
+
+    #walletDiv:hover {
+        background-color: #647161;
+    }
+
+.dropdownItem {
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #40464b
+}
+
+    .dropdownItem:hover {
+        user-select: none;
+        cursor: pointer;
+        background-color: #363a3e
+    }

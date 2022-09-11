@@ -105,7 +105,8 @@ namespace CryptoGambling.Data.DataManaging
 
         public async Task<User?> GetUserByEmail(string email)
         {
-            return await _data.Users.Where(user => user.Email == email).FirstOrDefaultAsync();
+            return await _data.Users.Include(user => user.Wallet).Include(user => user.Deposites)
+                .Include(user => user.Withdrawals).Where(user => user.Email == email).FirstOrDefaultAsync();
         }
 
         public async Task<User?> GetUserByReferralLink(string referralLnki)

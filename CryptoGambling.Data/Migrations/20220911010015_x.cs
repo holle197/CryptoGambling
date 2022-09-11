@@ -4,7 +4,7 @@
 
 namespace CryptoGambling.Data.Migrations
 {
-    public partial class xxx : Migration
+    public partial class x : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,7 +45,7 @@ namespace CryptoGambling.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DepositeHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -54,15 +54,15 @@ namespace CryptoGambling.Data.Migrations
                         name: "FK_Deposites_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Wallets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     BtcAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LtcAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DogeAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -71,14 +71,15 @@ namespace CryptoGambling.Data.Migrations
                     DogeBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     BtcReferredBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     LtcReferredBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DogeReferredBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    DogeReferredBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Wallets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Wallets_Users_Id",
-                        column: x => x.Id,
+                        name: "FK_Wallets_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -108,6 +109,12 @@ namespace CryptoGambling.Data.Migrations
                 name: "IX_Deposites_UserId",
                 table: "Deposites",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Wallets_UserId",
+                table: "Wallets",
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Withdrawals_UserId",
