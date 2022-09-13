@@ -51,25 +51,57 @@ namespace CryptoGambling.Data.DataManaging
 
         }
 
-        public async Task AddDeposite(string email, string hash, decimal amount)
+        public async Task<Deposite?> CreateBtcDeposite(string email, string hash, decimal amount)
+        {
+            var user = await _data.Users.Include(user => user.Deposites).Include(user => user.Wallet)
+                .Where(user => user.Email == email).FirstOrDefaultAsync();
+
+            if (user is not null)
+            {
+                var deposites = user.Deposites;
+                var wallet = user.Wallet;
+                if (deposites is not null)
+                {
+                    var deposite = CreateNewDeposite(hash, amount, Currency.Btc);
+                    deposites.Add(deposite);
+                    UpdateBalance(wallet, amount, Currency.Btc);
+                    await _data.SaveChangesAsync();
+                    return deposite;
+                }
+                else
+                {
+                    var deposite = CreateNewDeposite(hash, amount, Currency.Btc);
+                    user.Deposites = new();
+                    user.Deposites.Add(deposite);
+                    UpdateBalance(wallet, amount, Currency.Btc);
+                    await _data.SaveChangesAsync();
+                    return deposite;
+                }
+            }
+
+            return null;
+        }
+
+
+        public async Task CreateWithdrawal(string email, string hash, decimal amount, Currency currency)
         {
             var user = await GetUserByEmail(email);
             if (user is not null)
             {
-                Deposite d = new Deposite();
-                d.DepositeHash = hash;
-                d.Amount = amount;
-
-                var deposites = user.Deposites;
-                if (deposites is not null)
+                Withdrawal withdrawal = new Withdrawal();
+                withdrawal.Hash = hash;
+                withdrawal.Amount = amount;
+                withdrawal.Currency = Currency.Btc;
+                var withdrawals = user.Withdrawals;
+                if (withdrawals is not null)
                 {
 
-                    user?.Deposites?.Add(d);
+                    user?.Withdrawals?.Add(withdrawal);
                     await _data.SaveChangesAsync();
                     return;
                 }
-                user.Deposites = new();
-                user.Deposites.Add(d);
+                user.Withdrawals = new();
+                user.Withdrawals.Add(withdrawal);
                 await _data.SaveChangesAsync();
             }
         }
@@ -77,16 +109,8 @@ namespace CryptoGambling.Data.DataManaging
         public async Task<List<Deposite>?> GetDeposites(string email)
         {
             var user = await GetUserByEmail(email);
-            if (user is not null)
-            {
-                var deposites = user?.Deposites?.ToList();
-                if (deposites is not null)
-                {
-                    return deposites;
-                }
-                return null;
-            }
-            return null;
+
+            return user?.Deposites?.ToList();
         }
         public async Task<List<Withdrawal>?> GetWithdrawals(string email)
         {
@@ -109,17 +133,17 @@ namespace CryptoGambling.Data.DataManaging
                 .Include(user => user.Withdrawals).Where(user => user.Email == email).FirstOrDefaultAsync();
         }
 
+
         public async Task<User?> GetUserByReferralLink(string referralLnki)
         {
-            return await _data.Users.Where(user => user.ReferralLink == referralLnki).FirstOrDefaultAsync();
+            return await _data.Users.Include(user => user.Wallet).Where(user => user.ReferralLink == referralLnki).FirstOrDefaultAsync();
         }
-
 
 
 
         public async Task<List<User>?> GetReferredUsers(string referralLink)
         {
-            return await _data.Users.Where(user => user.ReferredBy == referralLink).ToListAsync();
+            return await _data.Users.Include(user => user.Wallet).Where(user => user.ReferredBy == referralLink).ToListAsync();
         }
 
 
@@ -141,5 +165,34 @@ namespace CryptoGambling.Data.DataManaging
             CryptoWallet cw = new CryptoWallet(email, Crypto.ExtApi.Networks.DogeTestnet, NBitcoin.ScriptPubKeyType.Legacy);
             return cw.GetAddress();
         }
+
+
+        private static Deposite CreateNewDeposite(string hash, decimal amount, Currency currency)
+        {
+            var deposite = new Deposite();
+            deposite.Hash = hash;
+            deposite.Amount = amount;
+            deposite.Curreny = currency;
+
+            return deposite;
+        }
+
+        // amount can be both,positive or negative
+        private static void UpdateBalance(Wallets wallet, decimal amount, Currency currency)
+        {
+            switch (currency)
+            {
+                case Currency.Btc:
+                    wallet.BtcBalance += amount;
+                    break;
+                case Currency.Ltc:
+                    wallet.LtcBalance += amount;
+                    break;
+                case Currency.Doge:
+                    wallet.DogeBalance += amount;
+                    break;
+            }
+        }
+
     }
 }

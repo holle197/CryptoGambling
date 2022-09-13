@@ -12,8 +12,10 @@ namespace CryptoGambling.Data.Funds
     public class Withdrawal
     {
         public int Id { get; set; }
-        public string? DepositeHash { get; set; }
+        public string? Hash { get; set; }
+        [Column(TypeName = "decimal(18, 8)")]
         public decimal Amount { get; set; }
+        public Currency Currency { get; set; }
         public virtual User? User { get; set; }
     }
 }

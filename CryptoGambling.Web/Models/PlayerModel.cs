@@ -1,4 +1,5 @@
 ﻿using CryptoGambling.Data.Funds;
+using System.Text.Json.Serialization;
 
 namespace CryptoGambling.Web.Models
 {
@@ -12,7 +13,7 @@ namespace CryptoGambling.Web.Models
         public decimal LtcBalance { get; set; }
         public decimal DogeBalance { get; set; }
 
-        public List<Deposite>? Deposites { get; set; }
+        public List<DepositeModel>? Deposites { get; set; }
         public List<Withdrawal>? Withdrawals { get; set; }
 
         // TODO

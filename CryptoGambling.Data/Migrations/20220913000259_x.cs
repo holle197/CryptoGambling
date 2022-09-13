@@ -14,8 +14,12 @@ namespace CryptoGambling.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EarnedBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SharedBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    BtcEarnedBalance = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    BtcSharedBalance = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    LtcEarnedBalance = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    LtcSharedBalance = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    DogeEarnedBalance = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    DogeSharedBalance = table.Column<decimal>(type: "decimal(18,8)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,8 +47,9 @@ namespace CryptoGambling.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DepositeHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Hash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Amount = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    Curreny = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -66,12 +71,12 @@ namespace CryptoGambling.Data.Migrations
                     BtcAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LtcAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DogeAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BtcBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    LtcBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DogeBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    BtcReferredBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    LtcReferredBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DogeReferredBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    BtcBalance = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    LtcBalance = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    DogeBalance = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    BtcReferredBalance = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    LtcReferredBalance = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    DogeReferredBalance = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -91,8 +96,9 @@ namespace CryptoGambling.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DepositeHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Hash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Amount = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    Currency = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CryptoGambling.Data.Migrations
 {
     [DbContext(typeof(DataUserContext))]
-    [Migration("20220911010015_x")]
+    [Migration("20220913000259_x")]
     partial class x
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,11 +32,23 @@ namespace CryptoGambling.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal>("EarnedBalance")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("BtcEarnedBalance")
+                        .HasColumnType("decimal(18,8)");
 
-                    b.Property<decimal>("SharedBalance")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("BtcSharedBalance")
+                        .HasColumnType("decimal(18,8)");
+
+                    b.Property<decimal>("DogeEarnedBalance")
+                        .HasColumnType("decimal(18,8)");
+
+                    b.Property<decimal>("DogeSharedBalance")
+                        .HasColumnType("decimal(18,8)");
+
+                    b.Property<decimal>("LtcEarnedBalance")
+                        .HasColumnType("decimal(18,8)");
+
+                    b.Property<decimal>("LtcSharedBalance")
+                        .HasColumnType("decimal(18,8)");
 
                     b.HasKey("Id");
 
@@ -52,9 +64,12 @@ namespace CryptoGambling.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,8)");
 
-                    b.Property<string>("DepositeHash")
+                    b.Property<int>("Curreny")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Hash")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
@@ -76,9 +91,12 @@ namespace CryptoGambling.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,8)");
 
-                    b.Property<string>("DepositeHash")
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Hash")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
@@ -125,28 +143,28 @@ namespace CryptoGambling.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("BtcBalance")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,8)");
 
                     b.Property<decimal>("BtcReferredBalance")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,8)");
 
                     b.Property<string>("DogeAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("DogeBalance")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,8)");
 
                     b.Property<decimal>("DogeReferredBalance")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,8)");
 
                     b.Property<string>("LtcAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("LtcBalance")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,8)");
 
                     b.Property<decimal>("LtcReferredBalance")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,8)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");

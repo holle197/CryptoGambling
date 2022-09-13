@@ -24,4 +24,6 @@ namespace CryptoGambling.Data.DataContext
         public DbSet<CashRegister> CashRegister { get; set; }
 
     }
+
+
 }

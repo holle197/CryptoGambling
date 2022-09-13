@@ -1,4 +1,5 @@
-﻿using CryptoGambling.Data.Users;
+﻿using CryptoGambling.Data.Funds;
+using CryptoGambling.Data.Users;
 using CryptoGambling.Web.Models;
 
 namespace CryptoGambling.Web.DTO
@@ -11,11 +12,11 @@ namespace CryptoGambling.Web.DTO
             pm.LtcBalance = FormatDeciml(user?.Wallet?.LtcBalance);
             pm.DogeBalance = FormatDeciml(user?.Wallet?.DogeBalance);
 
-            pm.BtcDepositeAddress = user?.Wallet?.BtcAddress ?? "OMG";
+            pm.BtcDepositeAddress = user?.Wallet?.BtcAddress ?? "";
             pm.LtcDepositeAddress = user?.Wallet?.LtcAddress ?? "";
             pm.DogeDepositeAddress = user?.Wallet?.DogeAddress ?? "";
 
-            pm.Deposites = user?.Deposites ?? null;
+            pm.Deposites = FillDeposites(user?.Deposites ?? null);
             pm.Withdrawals = user?.Withdrawals ?? null;
 
         }
@@ -24,6 +25,29 @@ namespace CryptoGambling.Web.DTO
         {
             decimal bal = balance ?? 0m;
             return Math.Round(bal, 8);
+        }
+
+        private static List<DepositeModel>? FillDeposites(List<Deposite>? deposites)
+        {
+            var result = new List<DepositeModel>();
+            if (deposites is not null)
+            {
+                foreach (var i in deposites)
+                {
+                    result.Add(ConvertDepositeToDepositeModel(i));
+                }
+            }
+            return result;
+        }
+
+        public static DepositeModel ConvertDepositeToDepositeModel(Deposite deposite)
+        {
+            var depositeModel = new DepositeModel();
+            depositeModel.Hash = deposite?.Hash ?? "";
+            depositeModel.Amount = deposite?.Amount ?? 0;
+            depositeModel.Currency = deposite?.Curreny ?? Currency.Btc;
+
+            return depositeModel;
         }
     }
 }

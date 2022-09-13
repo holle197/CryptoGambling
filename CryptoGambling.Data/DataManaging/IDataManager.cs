@@ -17,7 +17,9 @@ namespace CryptoGambling.Data.DataManaging
         Task<List<User>?> GetReferredUsers(string referralLink);
         Task<List<Deposite>?> GetDeposites(string email);
         Task<List<Withdrawal>?> GetWithdrawals(string email);
-        Task AddDeposite(string email, string hash, decimal amount);
+        Task<Deposite?> CreateBtcDeposite(string email, string hash, decimal amount);
+        Task CreateWithdrawal(string email, string hash, decimal amount, Currency currency);
+
 
     }
 }
