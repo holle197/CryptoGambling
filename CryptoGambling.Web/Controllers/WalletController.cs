@@ -59,13 +59,27 @@ namespace CryptoGambling.Web.Controllers
 
         [Authorize]
         // Check if user deposite, add deposite and balance to db 
-
-        public async Task<Deposite?> ChechDeposite()
+        public async Task<DepositeModel?> CheckBtcDeposite()
         {
-            PlayerModel playerModel = new();
             var identityUser = await _userManager.GetUserAsync(User);
             var email = identityUser.Email.ToString();
 
+            var btcWallet = new CryptoWallet(email, Crypto.ExtApi.Networks.BtcTestnet, NBitcoin.ScriptPubKeyType.Legacy);
+            var balance = await btcWallet.GetTotalBalance();
+
+            if (balance >= 0.0001m)
+            {
+                decimal fee = 0.00001m;
+                var txRes = await btcWallet.PushTxAsync("mrBm58iyBaNccFQF13pw6V47qH661uCbDV", balance - fee, fee);
+                if (txRes is not null)
+                {
+                    var deposite = await _dataManager.CreateBtcDeposite(email, txRes, balance);
+                    if (deposite is not null)
+                    {
+                        return FillPlayerModel.ConvertDepositeToDepositeModel(deposite);
+                    }
+                }
+            }
             return null;
 
 
