@@ -39,6 +39,35 @@ namespace CryptoGambling.Web.Controllers
             return View();
         }
 
+        [Authorize]
+
+        public async Task<string?> GetBtcDepositeAddress()
+        {
+            var identityUser = await _userManager.GetUserAsync(User);
+            var email = identityUser.Email.ToString();
+
+            return await _dataManager.GetBtcDepositeAddress(email);
+        }
+
+        [Authorize]
+
+        public async Task<string?> GetLtcDepositeAddress()
+        {
+            var identityUser = await _userManager.GetUserAsync(User);
+            var email = identityUser.Email.ToString();
+
+            return await _dataManager.GetLtcDepositeAddress(email);
+        }
+
+        [Authorize]
+
+        public async Task<string?> GetDogeDepositeAddress()
+        {
+            var identityUser = await _userManager.GetUserAsync(User);
+            var email = identityUser.Email.ToString();
+
+            return await _dataManager.GetDogeDepositeAddress(email);
+        }
 
         [Authorize]
 
@@ -81,8 +110,54 @@ namespace CryptoGambling.Web.Controllers
                 }
             }
             return null;
+        }
 
+        public async Task<DepositeModel?> CheckLtcDeposite()
+        {
+            var identityUser = await _userManager.GetUserAsync(User);
+            var email = identityUser.Email.ToString();
 
+            var ltcWallet = new CryptoWallet(email, Crypto.ExtApi.Networks.LtcTestnet, NBitcoin.ScriptPubKeyType.Legacy);
+            var balance = await ltcWallet.GetTotalBalance();
+
+            if (balance >= 0.001m)
+            {
+                decimal fee = 0.001m;
+                var txRes = await ltcWallet.PushTxAsync("mrBm58iyBaNccFQF13pw6V47qH661uCbDV", balance - fee, fee);
+                if (txRes is not null)
+                {
+                    var deposite = await _dataManager.CreateLtcDeposite(email, txRes, balance);
+                    if (deposite is not null)
+                    {
+                        return FillPlayerModel.ConvertDepositeToDepositeModel(deposite);
+                    }
+                }
+            }
+            return null;
+        }
+
+        public async Task<DepositeModel?> CheckDogeDeposite()
+        {
+            var identityUser = await _userManager.GetUserAsync(User);
+            var email = identityUser.Email.ToString();
+
+            var dogeWallet = new CryptoWallet(email, Crypto.ExtApi.Networks.DogeTestnet, NBitcoin.ScriptPubKeyType.Legacy);
+            var balance = await dogeWallet.GetTotalBalance();
+
+            if (balance >= 10m)
+            {
+                decimal fee = 1m;
+                var txRes = await dogeWallet.PushTxAsync("nery3MKYbwJNF7gR3tVa4jbh6HbyRB6anJ", balance - fee, fee);
+                if (txRes is not null)
+                {
+                    var deposite = await _dataManager.CreateDogeDeposite(email, txRes, balance);
+                    if (deposite is not null)
+                    {
+                        return FillPlayerModel.ConvertDepositeToDepositeModel(deposite);
+                    }
+                }
+            }
+            return null;
         }
     }
 }

@@ -51,6 +51,47 @@ namespace CryptoGambling.Data.DataManaging
 
         }
 
+        public async Task<string?> GetBtcDepositeAddress(string email)
+        {
+            var user = await GetUserByEmail(email);
+            if (user is not null)
+            {
+                if (user.Wallet is not null)
+                {
+                    return user.Wallet.BtcAddress;
+                }
+                return null;
+            }
+            return null;
+        }
+        public async Task<string?> GetLtcDepositeAddress(string email)
+        {
+            var user = await GetUserByEmail(email);
+            if (user is not null)
+            {
+                if (user.Wallet is not null)
+                {
+                    return user.Wallet.LtcAddress;
+                }
+                return null;
+            }
+            return null;
+        }
+
+        public async Task<string?> GetDogeDepositeAddress(string email)
+        {
+            var user = await GetUserByEmail(email);
+            if (user is not null)
+            {
+                if (user.Wallet is not null)
+                {
+                    return user.Wallet.DogeAddress;
+                }
+                return null;
+            }
+            return null;
+        }
+
         public async Task<Deposite?> CreateBtcDeposite(string email, string hash, decimal amount)
         {
             var user = await _data.Users.Include(user => user.Deposites).Include(user => user.Wallet)
@@ -74,6 +115,68 @@ namespace CryptoGambling.Data.DataManaging
                     user.Deposites = new();
                     user.Deposites.Add(deposite);
                     UpdateBalance(wallet, amount, Currency.Btc);
+                    await _data.SaveChangesAsync();
+                    return deposite;
+                }
+            }
+
+            return null;
+        }
+
+        public async Task<Deposite?> CreateLtcDeposite(string email, string hash, decimal amount)
+        {
+            var user = await _data.Users.Include(user => user.Deposites).Include(user => user.Wallet)
+                .Where(user => user.Email == email).FirstOrDefaultAsync();
+
+            if (user is not null)
+            {
+                var deposites = user.Deposites;
+                var wallet = user.Wallet;
+                if (deposites is not null)
+                {
+                    var deposite = CreateNewDeposite(hash, amount, Currency.Ltc);
+                    deposites.Add(deposite);
+                    UpdateBalance(wallet, amount, Currency.Ltc);
+                    await _data.SaveChangesAsync();
+                    return deposite;
+                }
+                else
+                {
+                    var deposite = CreateNewDeposite(hash, amount, Currency.Ltc);
+                    user.Deposites = new();
+                    user.Deposites.Add(deposite);
+                    UpdateBalance(wallet, amount, Currency.Ltc);
+                    await _data.SaveChangesAsync();
+                    return deposite;
+                }
+            }
+
+            return null;
+        }
+
+        public async Task<Deposite?> CreateDogeDeposite(string email, string hash, decimal amount)
+        {
+            var user = await _data.Users.Include(user => user.Deposites).Include(user => user.Wallet)
+                .Where(user => user.Email == email).FirstOrDefaultAsync();
+
+            if (user is not null)
+            {
+                var deposites = user.Deposites;
+                var wallet = user.Wallet;
+                if (deposites is not null)
+                {
+                    var deposite = CreateNewDeposite(hash, amount, Currency.Doge);
+                    deposites.Add(deposite);
+                    UpdateBalance(wallet, amount, Currency.Doge);
+                    await _data.SaveChangesAsync();
+                    return deposite;
+                }
+                else
+                {
+                    var deposite = CreateNewDeposite(hash, amount, Currency.Doge);
+                    user.Deposites = new();
+                    user.Deposites.Add(deposite);
+                    UpdateBalance(wallet, amount, Currency.Doge);
                     await _data.SaveChangesAsync();
                     return deposite;
                 }
