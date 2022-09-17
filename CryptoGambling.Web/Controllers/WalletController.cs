@@ -159,5 +159,14 @@ namespace CryptoGambling.Web.Controllers
             }
             return null;
         }
+
+
+        public async Task x()
+        {
+            var identityUser = await _userManager.GetUserAsync(User);
+            var email = identityUser.Email.ToString();
+
+            await _dataManager.Bet(Currency.Doge, -1m, email);
+        }
     }
 }

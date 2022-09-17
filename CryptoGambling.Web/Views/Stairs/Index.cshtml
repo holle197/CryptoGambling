@@ -1,22 +1,84 @@
 ﻿@model PlayerModel
 @{
-   
+
 }
 <partial name="_GamesPartial" />
 
 <partial name="_WalletPartial" />
 
 
+<div class="container">
+    <div class="row">
+        <div class="col  col-12 d-flex justify-content-center align-content-center">
+            <div class="gameBoard">
+
+                <div class="container ">
+
+                    @for (int i = 6; i > 0; i--)
+                    {
+                        <div class="row p-1">
+
+
+                            @for (int j = 4; j > 0; j--)
+                            {
+                                <div class="col-3">
+                                    <div class="gameField" row=@i col=@j>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_GameInputPartial" />
+
+
 @section scripts {
+<script src="~/js/stairsGame.js"></script>
+<script>
 
-    <script>
-
-     setInterval(ExternalCheckBtcDeposite,60000);
-     setInterval(ExternalCheckLtcDeposite,60000);
-     setInterval(ExternalCheckDogeDeposite,60000);
+    setInterval(ExternalCheckBtcDeposite,60000);
+    setInterval(ExternalCheckLtcDeposite,60000);
+    setInterval(ExternalCheckDogeDeposite,60000);
 
 
 
-    </script>
+</script>
 
 }
+
+
+@*
+    <div class="row p-1 ">
+    <div class="col-3">
+
+    <div class="gameField">
+
+    </div>
+    </div>
+
+    <div class="col-3">
+    <div class="gameField">
+
+    </div>
+    </div>
+
+    <div class="col-3">
+    <div class="gameField">
+
+    <div class="col-3">
+    <div class="gameField">
+
+    </div>
+
+    </div>
+    </div>              </div>
+    </div>
+
+*@

@@ -3,6 +3,7 @@
 
 // Write your JavaScript code.
 
+//wallet section
 var btcAddress;
 var ltcAddress;
 var dogeAddress;
@@ -18,9 +19,29 @@ var minDogeDeposite = 10;
 var minLtcDeposite = 0.001;
 
 
+//game section
+var currency = "BTC";
+var difficulty = "EASY";
+
+//bet section
+var btcBetAmount = 0.00001;
+var ltcBetAmount = 0.00001;
+var dogeBetAmount = 1;
+
+var btcMinBet = 0.00001;
+var ltcMinBet = 0.00001;
+var dogeMinBet = 1;
+
 
 function DepositeSound() {
     var sound = new Audio("../sounds/depositesound.wav");
+    sound.loop = false;
+    sound.play();
+}
+
+
+function PlayEndSound() {
+    var sound = new Audio("../sounds/startendgame.wav");
     sound.loop = false;
     sound.play();
 }
@@ -187,10 +208,64 @@ function ExternalCheckDogeDeposite() {
 
 
 
-
-
-
-
 GetBtcAddress();
 GetLtcAddress();
 GetDogeAddress();
+
+
+
+//switch currency
+
+$("#btcDropdown").on("click", function () {
+    currency = "BTC";
+    let currBalance = $("#btcBalance").html();
+    $("#walletImg").attr("src", "../img/btcwalleticon.png");
+    $("#walletShortName").text("BTC");
+    $("#walletBalance").text(currBalance);
+    $("#amountInput").text(currBalance);
+    $("#amountInp").attr("value", btcMinBet);
+
+});
+
+$("#ltcDropdown").on("click", function () {
+    currency = "LTC";
+    let currBalance = $("#ltcBalance").html();
+    $("#walletImg").attr("src", "../img/ltcwalleticon.png");
+    $("#walletShortName").text("LTC");
+    $("#walletBalance").text(currBalance);
+    $("#amountInp").attr("value", ltcMinBet);
+
+});
+$("#dogeDropdown").on("click", function () {
+    currency = "DOGE";
+    let currBalance = $("#dogeBalance").html();
+    $("#walletImg").attr("src", "../img/dogewalleticon.png");
+    $("#walletShortName").text("DOGE");
+    $("#walletBalance").text(currBalance);
+    $("#amountInp").attr("value", dogeMinBet);
+
+});
+
+$("#playEndDiv").on("click", function () {
+    PlayEndSound();
+});
+
+
+//switch difficulty
+
+$("#dropdownEasy").on("click", function () {
+    difficulty = "EASY";
+
+    $("#currDiffImg").attr("src", "../img/easy.png");
+});
+
+$("#dropdownMedium").on("click", function () {
+    difficulty = "MEDIUM";
+
+    $("#currDiffImg").attr("src", "../img/medium.png");
+});
+$("#dropdownHard").on("click", function () {
+    difficulty = "HARD";
+
+    $("#currDiffImg").attr("src", "../img/hard.png");
+});

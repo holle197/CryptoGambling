@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CryptoGambling.Core\CryptoGambling.Core.csproj" />
     <ProjectReference Include="..\CryptoGambling.Crypto.ExtApi\CryptoGambling.Crypto.ExtApi.csproj" />
     <ProjectReference Include="..\CryptoGambling.Crypto.Wallet\CryptoGambling.Crypto.Wallet.csproj" />
   </ItemGroup>

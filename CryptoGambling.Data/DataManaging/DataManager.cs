@@ -1,4 +1,5 @@
 ﻿using CryptoGambling.Crypto.Wallet.Wallet;
+using CryptoGambling.Data.CashRegisters;
 using CryptoGambling.Data.DataContext;
 using CryptoGambling.Data.Funds;
 using CryptoGambling.Data.Users;
@@ -249,7 +250,38 @@ namespace CryptoGambling.Data.DataManaging
             return await _data.Users.Include(user => user.Wallet).Where(user => user.ReferredBy == referralLink).ToListAsync();
         }
 
+        public async Task<bool> Bet(Currency currency, decimal amount, string email)
+        {
+            var user = await _data.Users.Include(user => user.Wallet).Where(user => user.Email == email).FirstOrDefaultAsync();
+            if (user is not null)
+            {
+                UpdateBalance(user.Wallet, amount, currency);
+                //if user is refered and lose bet
+                if (user.ReferredBy is not null && amount < 0)
+                {
+                    var earnedBalance = (amount / 4) * -1;
+                    var sharedBalance = (amount / 4) * -1;
+                    var reffBalance = (amount / 2) * -1;
+                    UpdateReffBalance(user.Wallet, reffBalance, currency);
+                    await UpdateCashRegister(currency, earnedBalance, sharedBalance);
 
+                }
+                UpdateBalance(user.Wallet, amount, currency);
+                if (amount < 0)
+                {
+                    var sharedBalance = (amount / 2) * -1;
+                    var earnedBalance = (amount / 2) * -1;
+                    await UpdateCashRegister(currency, earnedBalance, sharedBalance);
+                }
+                else
+                {
+                    await UpdateCashRegister(currency, amount, 0m);
+                }
+                await _data.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
 
 
 
@@ -294,6 +326,48 @@ namespace CryptoGambling.Data.DataManaging
                 case Currency.Doge:
                     wallet.DogeBalance += amount;
                     break;
+            }
+        }
+
+
+        private static void UpdateReffBalance(Wallets wallet, decimal amount, Currency currency)
+        {
+            switch (currency)
+            {
+                case Currency.Btc:
+                    wallet.BtcReferredBalance += amount;
+                    break;
+                case Currency.Ltc:
+                    wallet.LtcReferredBalance += amount;
+                    break;
+                case Currency.Doge:
+                    wallet.DogeReferredBalance += amount;
+                    break;
+            }
+        }
+
+        private async Task UpdateCashRegister(Currency currency, decimal earnedBalance, decimal sharedBalance)
+        {
+            var register = await _data.CashRegister.Where(x => x.Id == 1).FirstOrDefaultAsync();
+            if (register is not null)
+            {
+                switch (currency)
+                {
+                    case Currency.Btc:
+                        register.BtcEarnedBalance += earnedBalance;
+                        register.BtcSharedBalance += sharedBalance;
+                        break;
+                    case Currency.Ltc:
+                        register.LtcEarnedBalance = earnedBalance;
+                        register.LtcSharedBalance = sharedBalance;
+                        break;
+                    case Currency.Doge:
+                        register.DogeEarnedBalance = earnedBalance;
+                        register.DogeSharedBalance = sharedBalance;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

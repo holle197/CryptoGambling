@@ -1,4 +1,5 @@
-﻿using CryptoGambling.Data.Funds;
+﻿using CryptoGambling.Core.Games.Models;
+using CryptoGambling.Data.Funds;
 using CryptoGambling.Data.Users;
 using CryptoGambling.Data.WalletsData;
 using System;
@@ -24,9 +25,11 @@ namespace CryptoGambling.Data.DataManaging
         Task<Deposite?> CreateBtcDeposite(string email, string hash, decimal amount);
         Task<Deposite?> CreateLtcDeposite(string email, string hash, decimal amount);
         Task<Deposite?> CreateDogeDeposite(string email, string hash, decimal amount);
-
         Task CreateWithdrawal(string email, string hash, decimal amount, Currency currency);
 
+
+        //amount can be positive or negative
+        Task<bool> Bet(Currency currency, decimal amount, string email);
 
     }
 }

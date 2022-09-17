@@ -2,39 +2,36 @@
 @{
 }
 
-<div class="container mt-3">
-    <div class="row">
-
-        <div class="col-12 col-md-6 d-flex align-content-center justify-content-center align-content-md-end justify-content-md-end p-2">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+<div class="container d-flex align-content-center justify-content-center pb-5">
+    <div class="d-inline">
+        <div class="dropdown p-1">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="~/img/btcwalleticon.png" id="walletImg" class="d-inline" height=22px; width=22px; />
+                <span id="walletBalance" class="pe-5">@Model.BtcBalance</span>
+                <span id="walletShortName" class="walletShortName ms-5 p-1">BTC</span>
+            </button>
+            <ul class="dropdown-menu bg-secondary ghwt p-2" aria-labelledby="dropdownMenuButton1">
+                <li id="btcDropdown" class="mt-1 dropdownItem">
                     <img src="~/img/btcwalleticon.png" id="walletImg" class="d-inline" height=22px; width=22px; />
-                    <span id="walletBalance" class="pe-5">@Model.BtcBalance</span>
-                    <span id="walletShortName" class="walletShortName ms-5 p-1">BTC</span>
-                </button>
-                <ul class="dropdown-menu bg-secondary ghwt p-2" aria-labelledby="dropdownMenuButton1">
-                    <li class="mt-1 dropdownItem">
-                        <img src="~/img/btcwalleticon.png" id="walletImg" class="d-inline" height=22px; width=22px; />
-                        <span id="btcBalance" class="pe-5">@Model.BtcBalance</span>
-                        <span id="btcShurtName" class="walletShortName ms-4 p-1">BTC</span>
-                    </li>
-                    <li class="mt-1 dropdownItem">
-                        <img src="~/img/ltcwalleticon.png" id="walletImg" class="d-inline" height=22px; width=22px; />
-                        <span id="ltcBalance" class="pe-5">@Model.LtcBalance</span>
-                        <span id="ltcShurtname" class="walletShortName ms-4 p-1">LTC</span>
-                    </li>
-                    <li class="mt-1 dropdownItem">
-                        <img src="~/img/dogewalleticon.png" id="walletImg" class="d-inline" height=22px; width=22px; />
-                        <span id="dogeBalance" class="pe-5">@Model.DogeBalance</span>
-                        <span id="dogeShurtname" class="walletShortName ms-4 p-1">DOGE</span>
-                    </li>
-                </ul>
-            </div>
+                    <span id="btcBalance" class="pe-5">@Model.BtcBalance</span>
+                    <span id="btcShurtName" class="walletShortName ms-4 p-1">BTC</span>
+                </li>
+                <li id="ltcDropdown" class="mt-1 dropdownItem">
+                    <img src="~/img/ltcwalleticon.png" id="walletImg" class="d-inline" height=22px; width=22px; />
+                    <span id="ltcBalance" class="pe-5">@Model.LtcBalance</span>
+                    <span id="ltcShurtname" class="walletShortName ms-4 p-1">LTC</span>
+                </li>
+                <li id="dogeDropdown" class="mt-1 dropdownItem">
+                    <img src="~/img/dogewalleticon.png" id="walletImg" class="d-inline" height=22px; width=22px; />
+                    <span id="dogeBalance" class="pe-5">@Model.DogeBalance</span>
+                    <span id="dogeShurtname" class="walletShortName ms-4 p-1">DOGE</span>
+                </li>
+            </ul>
         </div>
-
-        <div class="col-12 col-md-6 d-flex align-content-center justify-content-center align-content-md-start justify-content-md-start p-2">
-            <p id="walletDiv" class="ghwt ps-5 pe-5 pt-2 pb-2">WALLET</p>
-        </div>
-
+    </div>
+    <div class="d-inline p-1">
+        <p id="walletDiv" class="ghwt ps-5 pe-5 pt-2 pb-2">WALLET</p>
     </div>
 </div>
+
+

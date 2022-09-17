@@ -104,14 +104,6 @@ a {
 
 
 
-
-
-
-
-
-
-
-
 .leftrightanimation {
     -webkit-animation: linear infinite;
     -webkit-animation-name: run;
@@ -222,3 +214,84 @@ a {
         cursor: pointer;
         background-color: #363a3e
     }
+
+#playEndDiv {
+    background-color: #1b323c;
+    border: 3px solid #2b4049;
+    min-height: 40px;
+    min-width: 350px;
+    border-radius: 20px;
+    user-select: none;
+    cursor: pointer;
+}
+
+    #playEndDiv:hover {
+        background-color: #0a1116;
+    }
+
+#playEndText {
+    margin-top: 7px;
+}
+
+#gameInpContainer {
+    background-color: blue;
+}
+
+
+
+
+.gameBoard {
+    padding: 10px;
+    border: 3px solid #2b4049;
+    border-radius: 10px;
+    background-color: #1b323c
+}
+
+
+.gameField {
+    min-height: 50px;
+    min-width: 80px;
+    padding: 3px;
+    border-radius: 10px;
+    background-color: #0f1a21;
+    border: 0.1px solid #30414b;
+}
+
+
+
+
+#amountInp {
+    margin-top: 10px;
+    width: 450px;
+    background-color: transparent;
+    border: 1px solid #30414b;
+    text-align: center;
+    border-radius: 10px;
+    color: ghostwhite;
+}
+
+
+
+
+.currRow {
+    background-image: linear-gradient(90deg, #30414b 50%, transparent 50%), linear-gradient(90deg, #30414b 50%, transparent 50%), linear-gradient(0deg, #30414b 50%, transparent 50%), linear-gradient(0deg, #30414b 50%, transparent 50%);
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-size: 15px 2px, 15px 2px, 2px 15px, 2px 15px;
+    background-position: left top, right bottom, left bottom, right top;
+    animation: border-dance 1s infinite linear;
+    user-select: none;
+    cursor: pointer;
+    background-color: #0a1116;
+    border: none;
+}
+
+@keyframes border-dance {
+    0% {
+        background-position: left top, right bottom, left bottom, right top;
+    }
+
+    100% {
+        background-position: left 15px top, right 15px bottom, left bottom 15px, right top 15px;
+    }
+}
+}
