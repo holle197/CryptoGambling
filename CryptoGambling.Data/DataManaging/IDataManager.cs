@@ -26,9 +26,10 @@ namespace CryptoGambling.Data.DataManaging
         Task<Deposite?> CreateLtcDeposite(string email, string hash, decimal amount);
         Task<Deposite?> CreateDogeDeposite(string email, string hash, decimal amount);
         Task CreateWithdrawal(string email, string hash, decimal amount, Currency currency);
-
+        Task<decimal> GetUserBalance(string email, Currency currency);
 
         //amount can be positive or negative
+        Task<decimal> GetSharedBalance(Currency currency);
         Task<bool> Bet(Currency currency, decimal amount, string email);
 
     }

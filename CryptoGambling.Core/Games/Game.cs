@@ -46,7 +46,7 @@ namespace CryptoGambling.Core.Games
             {
                 Currencies.Btc => gameInput.BetAmount >= 0.00001m,
                 Currencies.Ltc => gameInput.BetAmount >= 0.00001m,
-                Currencies.Doge => gameInput.BetAmount >= 0.01m,
+                Currencies.Doge => gameInput.BetAmount >= 1m,
                 _ => gameInput.BetAmount >= 0.00001m
             };
         }

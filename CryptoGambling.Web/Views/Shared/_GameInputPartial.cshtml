@@ -2,12 +2,12 @@
 @{
 }
 <div class="container d-flex align-content-center justify-content-center">
-    <input id="amountInp" value="0.00001" />
+    <input id="amountInp" value="0.00001" onkeypress="return isNumberKey(event,this)" />
 </div>
 
 <div class="container d-flex align-content-center justify-content-center pb-5">
             <div  class=" p-1 d-inline">
-            <div id="playEndDiv" class="d-flex align-content-center justify-content-center">
+            <div id="playEndDiv" class="d-flex align-content-center justify-content-center start">
                 <h5 class="ghwt" id="playEndText">PLAY</h5>
             </div>
         </div>

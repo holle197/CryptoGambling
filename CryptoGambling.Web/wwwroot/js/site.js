@@ -20,8 +20,8 @@ var minLtcDeposite = 0.001;
 
 
 //game section
-var currency = "BTC";
-var difficulty = "EASY";
+var currency = 0;
+var difficulty = 0;
 
 //bet section
 var btcBetAmount = 0.00001;
@@ -217,7 +217,7 @@ GetDogeAddress();
 //switch currency
 
 $("#btcDropdown").on("click", function () {
-    currency = "BTC";
+    currency = 0;
     let currBalance = $("#btcBalance").html();
     $("#walletImg").attr("src", "../img/btcwalleticon.png");
     $("#walletShortName").text("BTC");
@@ -228,7 +228,7 @@ $("#btcDropdown").on("click", function () {
 });
 
 $("#ltcDropdown").on("click", function () {
-    currency = "LTC";
+    currency = 1;
     let currBalance = $("#ltcBalance").html();
     $("#walletImg").attr("src", "../img/ltcwalleticon.png");
     $("#walletShortName").text("LTC");
@@ -237,7 +237,7 @@ $("#ltcDropdown").on("click", function () {
 
 });
 $("#dogeDropdown").on("click", function () {
-    currency = "DOGE";
+    currency = 2;
     let currBalance = $("#dogeBalance").html();
     $("#walletImg").attr("src", "../img/dogewalleticon.png");
     $("#walletShortName").text("DOGE");
@@ -246,26 +246,46 @@ $("#dogeDropdown").on("click", function () {
 
 });
 
-$("#playEndDiv").on("click", function () {
-    PlayEndSound();
-});
-
 
 //switch difficulty
 
 $("#dropdownEasy").on("click", function () {
-    difficulty = "EASY";
+    difficulty = 0;
 
     $("#currDiffImg").attr("src", "../img/easy.png");
 });
 
 $("#dropdownMedium").on("click", function () {
-    difficulty = "MEDIUM";
+    difficulty = 1;
 
     $("#currDiffImg").attr("src", "../img/medium.png");
 });
 $("#dropdownHard").on("click", function () {
-    difficulty = "HARD";
+    difficulty = 2;
 
     $("#currDiffImg").attr("src", "../img/hard.png");
 });
+
+
+//amount input validation
+
+function isNumberKey(evt, element) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57) && !(charCode == 46 || charCode == 8))
+        return false;
+    else {
+        var len = $(element).val().length;
+        var index = $(element).val().indexOf('.');
+        if (index > 0 && charCode == 46) {
+            return false;
+        }
+        if (index > 0) {
+            var CharAfterdot = (len + 1) - index;
+            if (CharAfterdot > 8) {
+                return false;
+            }
+        }
+
+    }
+    return true;
+}

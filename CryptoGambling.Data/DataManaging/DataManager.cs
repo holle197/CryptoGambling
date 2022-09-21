@@ -264,25 +264,70 @@ namespace CryptoGambling.Data.DataManaging
                     var reffBalance = (amount / 2) * -1;
                     UpdateReffBalance(user.Wallet, reffBalance, currency);
                     await UpdateCashRegister(currency, earnedBalance, sharedBalance);
-
                 }
-                UpdateBalance(user.Wallet, amount, currency);
-                if (amount < 0)
+                //user lose but isn't referred
+                else if (amount < 0)
                 {
                     var sharedBalance = (amount / 2) * -1;
                     var earnedBalance = (amount / 2) * -1;
                     await UpdateCashRegister(currency, earnedBalance, sharedBalance);
+                    await _data.SaveChangesAsync();
+                    return true;
                 }
-                else
+                //user won
+                else if (amount > 0)
                 {
-                    await UpdateCashRegister(currency, amount, 0m);
+                    var sharedBalance = amount * -1;
+                    var earnedBalance = 0;
+                    await UpdateCashRegister(currency, earnedBalance, sharedBalance);
+                    await _data.SaveChangesAsync();
+                    return true;
                 }
+
+                await UpdateCashRegister(currency, amount, 0m);
                 await _data.SaveChangesAsync();
                 return true;
             }
             return false;
         }
 
+        public async Task<decimal> GetUserBalance(string email, Currency currency)
+        {
+            var user = await _data.Users.Include(x => x.Wallet).Where(user => user.Email == email).FirstOrDefaultAsync();
+            if (user is not null)
+            {
+                switch (currency)
+                {
+                    case Currency.Btc:
+                        return user.Wallet.BtcBalance;
+                    case Currency.Ltc:
+                        return user.Wallet.LtcBalance;
+                    case Currency.Doge:
+                        return user.Wallet.DogeBalance;
+                }
+            }
+            return 0m;
+        }
+
+        public async Task<decimal> GetSharedBalance(Currency currency)
+        {
+            var cashRegister = await _data.CashRegister.Where(x => x.Id == 1).FirstOrDefaultAsync();
+            if (cashRegister is not null)
+            {
+                switch (currency)
+                {
+                    case Currency.Btc:
+                        return cashRegister.BtcSharedBalance;
+                    case Currency.Ltc:
+                        return cashRegister.LtcSharedBalance;
+                    case Currency.Doge:
+                        return cashRegister.DogeSharedBalance;
+                    default:
+                        return cashRegister.BtcSharedBalance;
+                }
+            }
+            return 0m;
+        }
 
 
         private string GetBtcAddress(string email)
@@ -330,6 +375,7 @@ namespace CryptoGambling.Data.DataManaging
         }
 
 
+
         private static void UpdateReffBalance(Wallets wallet, decimal amount, Currency currency)
         {
             switch (currency)
@@ -358,12 +404,12 @@ namespace CryptoGambling.Data.DataManaging
                         register.BtcSharedBalance += sharedBalance;
                         break;
                     case Currency.Ltc:
-                        register.LtcEarnedBalance = earnedBalance;
-                        register.LtcSharedBalance = sharedBalance;
+                        register.LtcEarnedBalance += earnedBalance;
+                        register.LtcSharedBalance += sharedBalance;
                         break;
                     case Currency.Doge:
-                        register.DogeEarnedBalance = earnedBalance;
-                        register.DogeSharedBalance = sharedBalance;
+                        register.DogeEarnedBalance += earnedBalance;
+                        register.DogeSharedBalance += sharedBalance;
                         break;
                     default:
                         break;

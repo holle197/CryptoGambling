@@ -31,7 +31,7 @@ namespace CryptoGambling.Core.Games
 
         protected override bool VerifyInputValue()
         {
-            return inputValue >= 1 || inputValue <= 4;
+            return inputValue >= 1 && inputValue <= 4;
         }
     }
 }
