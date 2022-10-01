@@ -38,8 +38,16 @@ function DepositeSound() {
     sound.loop = false;
     sound.play();
 }
-
-
+function WinSound() {
+    var sound = new Audio("../sounds/winsound.wav");
+    sound.loop = false;
+    sound.play();
+}
+function LoseSound() {
+    var sound = new Audio("../sounds/losesound.wav");
+    sound.loop = false;
+    sound.play();
+}
 function PlayEndSound() {
     var sound = new Audio("../sounds/startendgame.wav");
     sound.loop = false;
@@ -49,7 +57,7 @@ function PlayEndSound() {
 function GetBtcAddress() {
     $.ajax({
         type: "get",
-        url: "https://localhost:7223/wallet/GetBtcDepositeAddress",
+        url: "/Wallet/GetBtcDepositeAddress",
 
         success: function (address) {
             if (address) {
@@ -61,7 +69,7 @@ function GetBtcAddress() {
 function GetLtcAddress() {
     $.ajax({
         type: "get",
-        url: "https://localhost:7223/wallet/GetLtcDepositeAddress",
+        url: "/Wallet/GetLtcDepositeAddress",
 
         success: function (address) {
             if (address) {
@@ -73,7 +81,7 @@ function GetLtcAddress() {
 function GetDogeAddress() {
     $.ajax({
         type: "get",
-        url: "https://localhost:7223/wallet/GetDogeDepositeAddress",
+        url: "/Wallet/GetDogeDepositeAddress",
 
         success: function (address) {
             if (address) {
@@ -86,7 +94,7 @@ function GetDogeAddress() {
 function InternalCheckBtcDeposite() {
     $.ajax({
         type: "get",
-        url: "https://localhost:7223/wallet/CheckBtcDeposite",
+        url: "/Wallet/CheckBtcDeposite",
 
         success: function (deposite) {
             //deposite is not null
@@ -104,7 +112,7 @@ function InternalCheckBtcDeposite() {
 function InternalCheckLtcDeposite() {
     $.ajax({
         type: "get",
-        url: "https://localhost:7223/wallet/CheckLtcDeposite",
+        url: "/Wallet/CheckLtcDeposite",
 
         success: function (deposite) {
             //deposite is not null
@@ -123,7 +131,7 @@ function InternalCheckLtcDeposite() {
 function InternalCheckDogeDeposite() {
     $.ajax({
         type: "get",
-        url: "https://localhost:7223/wallet/CheckDogeDeposite",
+        url: "/Wallet/CheckDogeDeposite",
 
         success: function (deposite) {
             //deposite is not null
@@ -289,3 +297,5 @@ function isNumberKey(evt, element) {
     }
     return true;
 }
+
+

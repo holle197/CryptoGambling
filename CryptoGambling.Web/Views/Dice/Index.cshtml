@@ -1,0 +1,62 @@
+﻿@model PlayerModel
+@{
+
+}
+<partial name="_GamesPartial" />
+
+<partial name="_WalletPartial" />
+
+<div class ="container d-flex align-content-center justify-content-center">
+    <h4 id="winOrLose"></h4>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col d-flex align-content-center justify-content-center">
+            <h4 class="ghwt">Lucky Number:</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex align-content-center justify-content-center">
+            <div id="diceResultContainer" >
+                <h3 id="diceResult">0</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex align-content-center justify-content-center mt-5">
+            <input  type="range" id="volume" min="25" max="75" value="25" step="25" />
+
+        </div>
+    </div>
+</div>
+
+<div class="container d-flex align-content-center justify-content-center mt-2">
+    <h4 class="ghwt">Number > <span id="diff">25</span> </h4>
+</div>
+<div class="container d-flex align-content-center justify-content-center mt-2">
+    <h6 class="ghwt">Multiplier x <span id="winChance">1.24</span></h6>
+</div>
+
+
+
+
+<div class="container d-flex justify-content-center align-content-center text-danger">
+    <p id="errorMsg"></p>
+</div>
+<partial name="_GameInputPartial" />
+
+
+@section scripts {
+<script src="~/js/diceGame.js"></script>
+<script>
+
+    setInterval(ExternalCheckBtcDeposite,60000);
+    setInterval(ExternalCheckLtcDeposite,60000);
+    setInterval(ExternalCheckDogeDeposite,60000);
+
+
+
+</script>
+
+}

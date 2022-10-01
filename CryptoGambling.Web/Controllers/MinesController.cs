@@ -12,13 +12,13 @@ using CryptoGambling.Core.Games;
 
 namespace CryptoGambling.Web.Controllers
 {
-    public class StairsController : Controller
+    public class MinesController : Controller
     {
         private readonly IDataManager _dataManager;
         private readonly UserManager<UserIdentity> _userManager;
 
 
-        public StairsController(IDataManager dataManager, UserManager<UserIdentity> userManager)
+        public MinesController(IDataManager dataManager, UserManager<UserIdentity> userManager)
         {
             _dataManager = dataManager;
             _userManager = userManager;
@@ -41,6 +41,8 @@ namespace CryptoGambling.Web.Controllers
             return View(playerModel);
         }
 
+
+
         [Authorize]
         [HttpPost]
         public async Task<GameOutput?> Bet(BetModel betModel)
@@ -52,7 +54,7 @@ namespace CryptoGambling.Web.Controllers
                 var balance = await _dataManager.GetUserBalance(email, betModel.Currency);
                 var sharedBalance = await _dataManager.GetSharedBalance(betModel.Currency);
                 var gameInput = BetModelToGameInput.Convert(betModel, balance);
-                var game = new SpaceExplorer(betModel.IntLuckyField, gameInput);
+                var game = new Mines(betModel.ListIntLuckyField, gameInput);
                 var res = game.Bet();
                 // force to lose
                 if (res.IsGameWinning == true && res.Profit > sharedBalance)
@@ -68,7 +70,6 @@ namespace CryptoGambling.Web.Controllers
             return null;
 
         }
-
 
     }
 }

@@ -238,7 +238,9 @@ a {
 }
 
 
-
+/*
+    Stairs
+*/
 
 .gameBoard {
     padding: 10px;
@@ -257,8 +259,19 @@ a {
     border: 0.1px solid #30414b;
 }
 
+.winField {
+    background-image: url("../img/planet.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
-
+.loseField {
+    background-image: url("../img/blackhole.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
 #amountInp {
     margin-top: 10px;
@@ -294,4 +307,24 @@ a {
         background-position: left 15px top, right 15px bottom, left bottom 15px, right top 15px;
     }
 }
+
+/*
+    dice
+*/
+#diceResultContainer {
+    background-color: #0f1a21;
+    border-radius: 10px;
+    padding: 40px;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.selected {
+    background-color: seagreen;
 }

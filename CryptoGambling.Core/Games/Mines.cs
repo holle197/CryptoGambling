@@ -49,10 +49,10 @@ namespace CryptoGambling.Core.Games
         {
             return gameInput.Difficulty switch
             {
-                Difficulty.Easy => 1.24m * inputValue.Count / 2,
-                Difficulty.Medium => 1.98m * inputValue.Count / 2,
-                Difficulty.Hard => 3.96m * inputValue.Count / 2,
-                _ => 1.32m,
+                Difficulty.Easy => 1.1m + (0.14m * inputValue.Count),
+                Difficulty.Medium => 1.4m + (0.3m * inputValue.Count),
+                Difficulty.Hard => 2.5m + (1.5m * inputValue.Count),
+                _ => 1.5m,
             };
         }
     }

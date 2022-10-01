@@ -1,10 +1,14 @@
 ﻿@model PlayerModel
 @{
-
+    int fields = 21;
 }
 <partial name="_GamesPartial" />
 
 <partial name="_WalletPartial" />
+
+<div class="container d-flex align-content-center justify-content-center">
+    <h4 id="winOrLose"></h4>
+</div>
 
 
 <div class="container">
@@ -14,15 +18,17 @@
 
                 <div class="container ">
 
-                    @for (int i = 6; i > 0; i--)
+                    @for (int i = 5; i > 0; i--)
                     {
+                        
                         <div class="row p-1">
 
 
                             @for (int j = 4; j > 0; j--)
                             {
+                                fields--;
                                 <div class="col-3">
-                                    <div class="gameField" row=@i col=@j>
+                                    <div class="gameField currRow" field=@fields>
                                     </div>
                                 </div>
                             }
@@ -36,15 +42,16 @@
     </div>
 </div>
 
-
 <div class="container d-flex justify-content-center align-content-center text-danger">
     <p id="errorMsg"></p>
 </div>
+
 <partial name="_GameInputPartial" />
 
 
+
 @section scripts {
-<script src="~/js/stairsGame.js"></script>
+<script src="~/js/minesGame.js"></script>
 <script>
 
     setInterval(ExternalCheckBtcDeposite,60000);
@@ -56,4 +63,3 @@
 </script>
 
 }
-

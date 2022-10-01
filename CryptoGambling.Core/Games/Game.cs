@@ -80,7 +80,10 @@ namespace CryptoGambling.Core.Games
         // if game is lost return negative amount
         private decimal GenerateProfit(bool isGameWinning, decimal quote)
         {
-            if (isGameWinning) return gameInput.BetAmount * quote;
+            if (isGameWinning)
+            {
+                return gameInput.BetAmount * quote - gameInput.BetAmount;
+            }
             return gameInput.BetAmount * -1m;
         }
         private GameOutput GenerateGameOutput(bool isGameWinning, decimal quote, decimal profit)
@@ -101,7 +104,7 @@ namespace CryptoGambling.Core.Games
             {
                 Currencies.Btc => 0.00001m,
                 Currencies.Ltc => 0.00001m,
-                Currencies.Doge => 0.01m,
+                Currencies.Doge => 1m,
                 _ => 0.00001m
             };
         }
